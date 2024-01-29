@@ -9,3 +9,4 @@ env/
 .vscode/
 .eggs/
 dist
+django_dotnetid.egg-info
