@@ -1,4 +1,5 @@
 import jwt
+import logging
 
 from django.conf import settings
 
@@ -11,6 +12,8 @@ from allauth.socialaccount.providers.oauth2.views import (
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 
 from .provider import DotnetIdProvider
+
+LOGGER = logging.getLogger(__name__)
 
 ID_TOKEN_ISSUER = (
     getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
@@ -53,6 +56,7 @@ class DotnetIdAdapter(OpenIDConnectAdapter):
                 audience=app.client_id,
             )
         except jwt.PyJWTError as e:
+            LOGGER.error(f"Invalid id_token: {e}")
             raise OAuth2Error("Invalid id_token") from e
 
         extra_data = {
@@ -69,6 +73,7 @@ class DotnetIdAdapter(OpenIDConnectAdapter):
                 extra_data[extra_attr] = identity_data[extra_attr]
                 
             except KeyError as e:
+                LOGGER.error(f"{extra_attr} is defined in settings but not present in id_token.")
                 raise OAuth2Error(f"{extra_attr} is defined in settings but not present in id_token.")
         login = self.get_provider().sociallogin_from_response(request, extra_data)
         return login
