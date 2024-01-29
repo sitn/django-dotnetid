@@ -2,9 +2,9 @@
 django-dotnetid
 ============
 
-django-dotnetid is a Django app to extending django-allauth.
+django-dotnetid is a Django app extending django-allauth.
 It implements an OpenID connect provider able to map extra_info from the id_token
-indo Django User model. It also is capable of attributing groups automatically.
+into Django User model. It is also capable of attributing groups automatically.
 
 You need to install django-allauth to be able to use this extension.
 
