@@ -8,6 +8,8 @@ into Django User model. It is also capable of attributing groups automatically.
 
 You need to install django-allauth to be able to use this extension.
 
+A full working example can be found here: https://github.com/sitn/django-dotnetid-example
+
 Quick start
 -----------
 
